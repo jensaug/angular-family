@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="sv" lang="sv">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="Familjen Augustssons hem i cyberrymden" />
+<meta name="keywords" content="Augustsson, augustsson" />
+<meta name="author" content="Jens X Augustsson  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+<link rel="stylesheet" type="text/css" href="andreas01.css" media="screen" title="andreas01 (screen)" />
+<link rel="stylesheet" type="text/css" href="print.css" media="print" />
+<title>Augustsson</title>
+
+<script src="prototype.js" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&key=ABQIAAAASNLDtjrQIDKiQitjX3psZBRVZFrwCEYM2jShed8pCwwkGPQWRhRGMJ4IMIXMfreWLvR2jqNywn9mjg" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+    //<![CDATA[
+
+		var map = null;
+		var markers = {};
+		var family = {};
+											
+    function load() {
+			if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map"));
+        map.setCenter(new GLatLng(57.84701, 12.36555), 11);
+    		map.setMapType(G_HYBRID_MAP);
+    		map.addControl(new GSmallMapControl());				
+				
+				GDownloadUrl("family.json", function(data, responseCode) {
+						//var myval = eval('(' + data + ')');												
+						eval("family = (" + data + ")");
+
+						//Sort by person id
+						var personIds = new Array();
+						for (id in family.persons) {
+								personIds.push(id);
+						}
+						personIds.sort();
+						//Loop through persons
+						personIds.each(function(id) {
+								//map marker
+								var person = family.persons[id];
+								if (person.placeId && family.places && family.places[person.placeId]) {
+									 var marker = createGMarker(person, family.places[person.placeId]);
+									 map.addOverlay(marker);
+									 markers[id] = marker;									 
+								}
+								//menu item
+								$('menuitems').innerHTML += "<li><a href=\"#\" onClick=\"JavaScript:displayPerson('" + id + "');\">" + person.name + "</a></li>";
+						});						
+				});
+      }						
+    }
+		
+    function createGMarker(person, place) {
+		 var point = new GLatLng(parseFloat(place.lat), parseFloat(place.lon));
+     var marker = new GMarker(point);
+		 var infoTabs = [
+        new GInfoWindowTab("info", createTabContact(person)),
+        new GInfoWindowTab("familj", createTabFamily(person))		
+     ];
+     GEvent.addListener(marker, "click", function() {
+       marker.openInfoWindowTabsHtml(infoTabs);
+     });
+     return marker;
+    }		
+
+		function createTabContact(p) {
+				var text = "<b>" + p.name + "</b> ";
+				if (p.email) {
+					 text += 	"<i>&nbsp;(<a href='mailto:" + p.email + "'>" + p.email + "</a>)</i>";
+				}
+				text += "<br/>";
+				if (p.mobile) {
+					 text += "<i>mobilnr: " + p.mobile + "</i> ";
+				}				
+				if (family.places[p.placeId]&& family.places[p.placeId].address) {
+					 text += "<br/><a href='http://kartor.eniro.se/query?streetname=" + family.places[p.placeId].address + "&what=map&asearch=1'>" + family.places[p.placeId].address + "</a>";				}				
+				text += "<br/>";				
+				if (p.url) {
+					 text += "<i><a href='" + p.url + "'>" + p.url + "</a></i>";
+				}				
+				return text;		
+		}
+		
+		function createTabFamily(person) {
+				var text = "";
+				if (person.relation) {
+					 for (var i = 0; i < person.relation.length; i++) {
+					 		 var rel = person.relation[i];
+							//alert(person.name);
+							//alert(rel);
+							//alert(rel.personId);
+							//alert(rel.type);
+							if (rel && rel.personId && rel.personId != null) {
+					 			 text += "<i>" + rel.type + "</i> <a href=\"JavaScript:displayPerson('" + rel.personId + "')\">" + rel.value + "</a>";							 
+							} else {					 
+				 		 		 text += "<i>" + rel.type + "</i> " + rel.value;		 
+							}
+							 
+							 if ((i%2) == 1) {
+							 		text += "<br/>";
+							 } else if ((i%2) != 1 && i+1 < person.relation.length) {
+							 		text += ", ";
+							 }							 
+					 }
+				}
+				return text;		
+		}
+
+		function displayPerson(id) {
+						 if (family.persons[id].image) {				
+  						 $('frontphoto').src = family.persons[id].image;
+						 } else {
+						 	 $('frontphoto').src = 'img/vidvattnet.jpg';
+						 }
+						 if (family.persons[id].quote) {				
+  						 $('quote').innerHTML = family.persons[id].quote;
+						 } else {
+						 	 $('quote').innerHTML = '\"I put on my robe and wizard hat\"<br />(BloodNinja)';
+						 }						 
+						 if (markers[id]) {
+    					 map.panTo(markers[id].getPoint());		
+    					 GEvent.trigger(markers[id], "click");						 
+						 }
+		}
+		
+		//]]>
+    </script>
+</head>
+
+<body onload="load()" onunload="GUnload()">
+<div id="wrap">
+
+<div id="header">
+<a href="/" border="0"><h1>Augustsson</h1></a><small></small>
+<strong><p id="quote">"I put on my robe and wizard hat"<br />(BloodNinja)</p></strong>
+</div>
+
+<img id="frontphoto" src="img/vidvattnet.jpg" width="760" height="175" alt="" />
+
+<div id="avmenu">
+<h2 class="hide">Menu:</h2>
+<ul id="menuitems" />
+
+<!--
+<div class="announce">
+<h3>Senaste Nytt:</h3>
+<p><strong>22:e maj 2006</strong><br />
+Du kan nu klicka p&aring; de familjemedlemmar som listas och f&aring; se var de bor och hur du kan n&aring; dem!</p>
+<p class="textright"><a href="index.html">L&auml;s mer...</a></p>
+</div>
+-->
+</div>
+
+<div id="extras">
+
+<h3>Webmail</h3>
+<p>
+  <form action="http://atmail1.b-one.net/atmail.pl" name="loginPage" method="post" target="bone">
+    Login<input style="font-size:10px;width:100px;" type="text" name="usernamehost" value="@augustsson.eu" />
+    L&ouml;senord<input style="font-size:10px;width:100px;" type="password" name="password" />
+    <a href="JavaScript:document.loginPage.submit();">logga in</a>
+    <input type="hidden" name="MailServer" value="perdition.b-one.net" />
+    <input type="hidden" name="LoginType" value="xp" />
+    <input type="hidden" name="MailType" value="imap" />
+    <input type="hidden" name="Language" value="da_DK" />
+  </form>
+<p>
+
+<h3>Mer info:</h3>
+<p>K&auml;ra sl&auml;ktingar! Bli ej alltf&ouml;r uppr&ouml;rda om information saknas eller &auml;r fel, mycket &aring;terst&aring;r att g&ouml;ra. Mejla mig om du k&auml;nner att n&aring;got b&ouml;r tas bort eller direkt b&ouml;r &auml;ndras! <p>
+<h3>Sl&auml;ktl&auml;nkar:</h3>
+<p>
+- <a href="http://www.augustsson.eu/SaganOmTornet//">Sagan om Tornet</a><br />
+- <a href="http://erik.augustsson.eu/">Eriks hemsida</a><br />
+- <a href="http://jens.augustsson.eu">Jens Hemsida</a><br />
+- <a href="http://bilddagboken.blogspot.com/">Bilddagboken</a><br />
+</p>
+<p class="small">Version: 0.9<br />(25:a april, 2006)</p>
+
+<p>
+	 <img src="beta.jpg" alt="Beeeta!" width="110">
+</p>
+
+</div>
+
+<div id="avcontent">
+<h2>V&auml;lkommen!</h2>
+<p>Vem bor i Lunden? Vem &auml;r Erik ihop med? N&auml;r tog Catrin k&ouml;rkort?</p>
+
+<h3>Kartor</h3>
+<p>Dra, klicka, zooma, lek!</p>
+<div id="map" style="width: 440px; height: 375px"></div>
+</div>
+
+<div id="footer">
+Copyright &copy; 2006 Jens X Augustsson. Design by <a href="http://andreasviklund.com">Andreas Viklund</a>.
+</div>
+
+</div>
+
+<iframe name="bone" style="hidden:true;" frameborder="0" />
+</body>
+</html>
