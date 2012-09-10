@@ -7,13 +7,14 @@ function GMapCtrl($scope, $http) {
     $scope.person = { quote:"\"I put on my robe and wizard hat\" - BloodNinja", img:"img/vidvattnet.jpg" };
     
     $http.get('family.json').success(function(data, status, headers, config) {
-       $scope.all = data; 
+       $scope.persons = data.persons; 
     });
     
+    /*
     $scope.persons = [
         { id:1, name:'Bertil', quote:'\"I put on my robe and wizard hat\" - BloodNinja', img:'img/vidvattnet.jpg' },
         { id:2, name:'Adam', quote:'\"I put on my robe and wizard hat\" - BloodNinja', img:'img/vidvattnet.jpg' }];
-        
+     */   
         
     $scope.map = null;
     $scope.markers = {};
