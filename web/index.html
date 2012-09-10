@@ -22,136 +22,25 @@
  
   <script src="js/prototype.js"></script>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&key=ABQIAAAASNLDtjrQIDKiQitjX3psZBRVZFrwCEYM2jShed8pCwwkGPQWRhRGMJ4IMIXMfreWLvR2jqNywn9mjg" type="text/javascript"></script>
-  <script type="text/javascript">
-    //<![CDATA[
-
-		var map = null;
-		var markers = {};
-		var family = {};
-											
-    function load() {
-			if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map"));
-        map.setCenter(new GLatLng(57.84701, 12.36555), 11);
-    		map.setMapType(G_HYBRID_MAP);
-    		map.addControl(new GSmallMapControl());				
-				
-				GDownloadUrl("family.json", function(data, responseCode) {
-						//var myval = eval('(' + data + ')');												
-						eval("family = (" + data + ")");
-
-						//Sort by person id
-						var personIds = new Array();
-						for (id in family.persons) {
-								personIds.push(id);
-						}
-						personIds.sort();
-						//Loop through persons
-						personIds.each(function(id) {
-								//map marker
-								var person = family.persons[id];
-								if (person.placeId && family.places && family.places[person.placeId]) {
-									 var marker = createGMarker(person, family.places[person.placeId]);
-									 map.addOverlay(marker);
-									 markers[id] = marker;									 
-								}
-								//menu item
-								$('menuitems').innerHTML += "<li><a href=\"#\" onClick=\"JavaScript:displayPerson('" + id + "');\">" + person.name + "</a></li>";
-						});						
-				});
-      }						
-    }
-		
-    function createGMarker(person, place) {
-		 var point = new GLatLng(parseFloat(place.lat), parseFloat(place.lon));
-     var marker = new GMarker(point);
-		 var infoTabs = [
-        new GInfoWindowTab("info", createTabContact(person)),
-        new GInfoWindowTab("familj", createTabFamily(person))		
-     ];
-     GEvent.addListener(marker, "click", function() {
-       marker.openInfoWindowTabsHtml(infoTabs);
-     });
-     return marker;
-    }		
-
-		function createTabContact(p) {
-				var text = "<b>" + p.name + "</b> ";
-				if (p.email) {
-					 text += 	"<i>&nbsp;(<a href='mailto:" + p.email + "'>" + p.email + "</a>)</i>";
-				}
-				text += "<br/>";
-				if (p.mobile) {
-					 text += "<i>mobilnr: " + p.mobile + "</i> ";
-				}				
-				if (family.places[p.placeId]&& family.places[p.placeId].address) {
-					 text += "<br/><a href='http://kartor.eniro.se/query?streetname=" + family.places[p.placeId].address + "&what=map&asearch=1'>" + family.places[p.placeId].address + "</a>";				}				
-				text += "<br/>";				
-				if (p.url) {
-					 text += "<i><a href='" + p.url + "'>" + p.url + "</a></i>";
-				}				
-				return text;		
-		}
-		
-		function createTabFamily(person) {
-				var text = "";
-				if (person.relation) {
-					 for (var i = 0; i < person.relation.length; i++) {
-					 		 var rel = person.relation[i];
-							//alert(person.name);
-							//alert(rel);
-							//alert(rel.personId);
-							//alert(rel.type);
-							if (rel && rel.personId && rel.personId != null) {
-					 			 text += "<i>" + rel.type + "</i> <a href=\"JavaScript:displayPerson('" + rel.personId + "')\">" + rel.value + "</a>";							 
-							} else {					 
-				 		 		 text += "<i>" + rel.type + "</i> " + rel.value;		 
-							}
-							 
-							 if ((i%2) == 1) {
-							 		text += "<br/>";
-							 } else if ((i%2) != 1 && i+1 < person.relation.length) {
-							 		text += ", ";
-							 }							 
-					 }
-				}
-				return text;		
-		}
-
-		function displayPerson(id) {
-						 if (family.persons[id].image) {				
-  						 $('frontphoto').src = family.persons[id].image;
-						 } else {
-						 	 $('frontphoto').src = 'img/vidvattnet.jpg';
-						 }
-						 if (family.persons[id].quote) {				
-  						 $('quote').innerHTML = family.persons[id].quote;
-						 } else {
-						 	 $('quote').innerHTML = '\"I put on my robe and wizard hat\"<br />(BloodNinja)';
-						 }						 
-						 if (markers[id]) {
-    					 map.panTo(markers[id].getPoint());		
-    					 GEvent.trigger(markers[id], "click");						 
-						 }
-		}
-		
-		//]]>
-    </script>
 </head>
 
-<body onload="load()" onunload="GUnload()">
+<body ng-controller="GMapCtrl" onunload="GUnload()">
 <div id="wrap">
 
 <div id="header">
 <a href="/" border="0"><h1>Augustsson</h1></a><small></small>
-<strong><p id="quote">"I put on my robe and wizard hat"<br />(BloodNinja)</p></strong>
+<strong><p>{{person.quote}}</p></strong>
 </div>
 
-<img id="frontphoto" src="img/vidvattnet.jpg" width="760" height="175" alt="" />
+<img id="frontphoto" src="{{person.img}}" width="760" height="175" alt="" />
 
 <div id="avmenu">
 <h2 class="hide">Menu:</h2>
-<ul id="menuitems" />
+<ul>
+    <li ng-repeat="p in persons | orderBy:'name'">
+        <a href="#{{p.name}}" ng-click="displayPerson(p.name)">{{p.name}}</a>
+    </li>
+</ul>
 
 <!--
 <div class="announce">
