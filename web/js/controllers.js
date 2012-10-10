@@ -2,9 +2,7 @@
 
 /* Controllers */
 
-function GMapCtrl($scope, $http) {
-
-    $scope.person = { quote:"\"I put on my robe and wizard hat\" - BloodNinja", img:"img/vidvattnet.jpg" };
+function Family($scope, $http) {
     
     $http.get('family.json').success(function(data, status, headers, config) {
        $scope.persons = data.persons;
@@ -32,7 +30,19 @@ function GMapCtrl($scope, $http) {
      */   
         
 	});
-	
+    
+    $scope.getImage = function(person) {
+        return person && person.image ? person.image : "img/vidvattnet.jpg";
+    }
+    
+    $scope.getQuote = function(person) {
+        return person ? person.quote : "I put on my robe and wizard hat";
+    }
+    
+    $scope.displayPerson = function(p) {
+        $scope.person = p;
+    }    
+    
     function createGMarker(person, place) {
         var point = new GLatLng(parseFloat(place.lat), parseFloat(place.lon));
         var marker = new GMarker(point);
@@ -91,25 +101,8 @@ function GMapCtrl($scope, $http) {
 
 }
 
-function displayPerson(name) {
-    $scope.persons.each(function(p) {
-        if (p.name == name) {
-        	 if (p.image) {				
-      		 $('frontphoto').src = p.image;
-    		 } else {
-    		 	 $('frontphoto').src =  $scope.person.img;
-    		 }
-    		 if (p.quote) {				
-      		 $('quote').innerHTML = p.quote;
-    		 } else {
-    		 	 $('quote').innerHTML = $scope.person.quote;
-    		 }						 
-    		 if (markers[id]) {
-    		 map.panTo(markers[id].getPoint());		
-    		 GEvent.trigger(markers[id], "click");						 
-    		 }                
-        }
-    });
+function FamilyList($scope) {
+
 }
     
 function MyCtrl1() {

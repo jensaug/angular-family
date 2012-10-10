@@ -24,32 +24,32 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=2&key=ABQIAAAASNLDtjrQIDKiQitjX3psZBRVZFrwCEYM2jShed8pCwwkGPQWRhRGMJ4IMIXMfreWLvR2jqNywn9mjg" type="text/javascript"></script>
 </head>
 
-<body ng-controller="GMapCtrl" onunload="GUnload()">
+<body ng-controller="Family" onunload="GUnload()">
 <div id="wrap">
 
 <div id="header">
 <a href="/" border="0"><h1>Augustsson</h1></a><small></small>
-<strong><p>{{person.quote}}</p></strong>
+<strong><p>{{getQuote(person)}}</p></strong>
 </div>
 
-<img id="frontphoto" src="{{person.img}}" width="760" height="175" alt="" />
+<img id="frontphoto" src="{{getImage(person)}}" width="760" height="175" alt="" />
 
-<div id="avmenu">
-<h2 class="hide">Menu:</h2>
-<ul>
-    <li ng-repeat="p in persons | orderBy:'name'">
-        <a href="#{{p.name}}" ng-click="displayPerson('{{p.name}}')">{{p.name}}</a>
-    </li>
-</ul>
-
-<!--
-<div class="announce">
-<h3>Senaste Nytt:</h3>
-<p><strong>22:e maj 2006</strong><br />
-Du kan nu klicka p&aring; de familjemedlemmar som listas och f&aring; se var de bor och hur du kan n&aring; dem!</p>
-<p class="textright"><a href="index.html">L&auml;s mer...</a></p>
-</div>
--->
+<div id="avmenu" ng-controller="FamilyList">
+    <h2 class="hide">Menu:</h2>
+    <ul>
+        <li ng-repeat="p in persons | orderBy:'name'">
+            <a href="#{{p.name}}" ng-click="displayPerson(p)">{{p.name}}</a>
+        </li>
+    </ul>
+    
+    <!--
+    <div class="announce">
+    <h3>Senaste Nytt:</h3>
+    <p><strong>22:e maj 2006</strong><br />
+    Du kan nu klicka p&aring; de familjemedlemmar som listas och f&aring; se var de bor och hur du kan n&aring; dem!</p>
+    <p class="textright"><a href="index.html">L&auml;s mer...</a></p>
+    </div>
+    -->
 </div>
 
 <div id="extras">
