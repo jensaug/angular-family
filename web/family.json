@@ -47,8 +47,6 @@
   	"email" : "kjell@augustsson.eu",
 	"placeId" : "hjallsnas",
 	"relation" : [
-		{ "type" : "pappa", "value" : "Rune", "personId" : "rune" },
-		{ "type" : "mamma", "value" : "Harriet", "personId" : "harriet" },
 		{ "type" : "lillasyster", "value" : "Eva", "personId" : "eva" },
 		{ "type" : "lillebror", "value" : "Per", "personId" : "per" },
 		{ "type" : "lillebror", "value" : "Hans", "personId" : "hans" },
@@ -59,33 +57,9 @@
 		{ "type" : "son", "value" : "Erik", "personId" : "erik" }
 	]				
    },
-   {"name" : "Rune",
-	"mobile": "0703221265",
-	"placeId" : "annedal",
-	"relation" : [		
-		{ "type" : "fru", "value" : "Harriet", "personId" : "harriet" },
-		{ "type" : "son", "value" : "Kjell", "personId" : "kjell" },
-		{ "type" : "dotter", "value" : "Eva", "personId" : "eva" },
-		{ "type" : "son", "value" : "Hans", "personId" : "hans" },
-		{ "type" : "son", "value" : "Per", "personId" : "per" }
-	]
-   },	
-   {"name" : "Harriet",
-	"mobile": "0703221265",
-	"placeId" : "annedal",
-	"relation" : [		
-		{ "type" : "make", "value" : "Rune", "personId" : "rune" },
-		{ "type" : "son", "value" : "Kjell", "personId" : "kjell" },
-	 	{ "type" : "dotter", "value" : "Eva", "personId" : "eva" },
-		{ "type" : "son", "value" : "Hans", "personId" : "hans" },
-		{ "type" : "son", "value" : "Per", "personId" : "per" }
-	]
-   },	
    {"name" : "Eva",
-	"placeId" : "bayonne",
+	"placeId" : "annedal",
 	"relation" : [
-		{ "type" : "pappa", "value" : "Rune", "personId" : "rune" },
-		{ "type" : "mamma", "value" : "Harriet", "personId" : "harriet" },
 		{ "type" : "storebror", "value" : "Kjell", "personId" : "kjell" },
 		{ "type" : "lillebror", "value" : "Per", "personId" : "per" },
 		{ "type" : "lillebror", "value" : "Hans", "personId" : "hans" },
@@ -94,14 +68,14 @@
 	]				
    },
    {"name" : "Stina",
-	"placeId" : "bayonne",
+	"placeId" : "annedal",
 	"relation" : [
 		{ "type" : "mamma", "value" : "Eva", "personId" : "eva" },
 		{ "type" : "lillasyster", "value" : "Sara", "personId" : "sara" }
 	]				
    },
    {"name" : "Sara",
-	"placeId" : "bayonne",
+	"placeId" : "annedal",
 	"relation" : [
 		{ "type" : "mamma", "value" : "Eva", "personId" : "eva" },
 		{ "type" : "storasyster", "value" : "Stina", "personId" : "stina" }
@@ -110,8 +84,6 @@
    {"name" : "Hans",
 	"placeId" : "sodravagen",
 	"relation" : [
-		{ "type" : "pappa", "value" : "Rune", "personId" : "rune" },
-		{ "type" : "mamma", "value" : "Harriet", "personId" : "harriet" },
 		{ "type" : "storebror", "value" : "Kjell", "personId" : "kjell" },
 		{ "type" : "storasyster", "value" : "Eva", "personId" : "eva" },
 		{ "type" : "tvilling", "value" : "Per", "personId" : "per" },
@@ -148,8 +120,6 @@
 	"url" : "/SaganOmTornet",
 	"placeId" : "london",
 	"relation" : [		
-  		{ "type" : "pappa", "value" : "Rune", "personId" : "rune" },
-		{ "type" : "mamma", "value" : "Harriet", "personId" : "harriet" },
 		{ "type" : "storebror", "value" : "Kjell", "personId" : "kjell" },
 		{ "type" : "storasyster", "value" : "Eva", "personId" : "eva" },
 		{ "type" : "tvilling", "value" : "Hans", "personId" : "hans" },
@@ -198,22 +168,27 @@
    {"name" : "Erik",
  	"image" : "img/eriktop.jpg",
   	"email" : "erik@augustsson.eu",
-	"placeId" : "partille",
+	"placeId" : "alsjon",
 	"relation" : [
 		{ "type" : "pappa", "value" : "Kjell", "personId" : "kjell" },
 		{ "type" : "mamma", "value" : "Lise", "personId" : "lise" },		
 		{ "type" : "storasyster", "value" : "Camilla", "personId" : "camilla" },
 		{ "type" : "storebror", "value" : "Jens", "personId" : "jens" },			
-		{ "type" : "storasyster", "value" : "Catrin", "personId" : "catrin" }	
+		{ "type" : "storasyster", "value" : "Catrin", "personId" : "catrin" },
+        { "type" : "flickvan", "value" : "Anna", "personId" : "anna" }
 	]				
    },
+   {"name" : "Anna",
+	"placeId" : "alsjon",
+	"relation" : [
+        { "type" : "pojkvan", "value" : "Erik", "personId" : "erik" }
+	]				
+   },   
    {"name" : "Lise",
  	"image" : "img/lisetop.jpg",
   	"email" : "lise@augustsson.eu",
 	"placeId" : "hjallsnas",
 	"relation" : [
-		{ "type" : "pappa", "value" : "Aasmund" },
-		{ "type" : "mamma", "value" : "Solveig", "personId" : "solveig" },
 		{ "type" : "storasyster", "value" : "Ami" },		
 		{ "type" : "make", "value" : "Kjell", "personId" : "kjell" },						
 		{ "type" : "dotter", "value" : "Camilla", "personId" : "camilla" },
@@ -221,32 +196,18 @@
 		{ "type" : "dotter", "value" : "Catrin", "personId" : "catrin" },
 		{ "type" : "son", "value" : "Erik", "personId" : "erik" }
 	]				
-   },
-   {"name" : "Solveig",
-	"placeId" : "lovkullen",
-	"relation" : [				
-		{ "type" : "dotter", "value" : "Lisemor", "personId" : "lise" }	
-	]
    },   
    {"name" : "Patrik",
-	"placeId" : "solros",
+	"placeId" : "patriks",
 	"relation" : [		
-		{ "type" : "fru", "value" : "Chery", "personId" : "chery" },		
-		{ "type" : "son", "value" : "Eah", "personId" : "eah" }
-	]
-   },
-   {"name" : "Chery",
-	"placeId" : "solros",
-	"relation" : [		
-		{ "type" : "make", "value" : "Patrik", "personId" : "patrik" },		
 		{ "type" : "son", "value" : "Eah", "personId" : "eah" }
 	]
    },
    {"name" : "Eah",
-	"placeId" : "solros",
+	"placeId" : "patriks",
 	"relation" : [		
 		{ "type" : "pappa", "value" : "Patrik", "personId" : "patrik" },		
-		{ "type" : "mamma", "value" : "Chery", "personId" : "chery" }
+		{ "type" : "mamma", "value" : "Chery"}
 	]
    },			
    {"name" : "Camilla",
@@ -300,50 +261,70 @@
  	"image" : "img/catrintop.jpg",
  	"email" : "catrin@augustsson.eu",
 	"mobile" : "0730588563",
-	"placeId" : "annesjon",
+	"placeId" : "knavrav",
 	"relation" : [		
 		{ "type" : "pappa", "value" : "Kjell", "personId" : "kjell" },
 		{ "type" : "mamma", "value" : "Lise", "personId" : "lise" },		
 		{ "type" : "storasyster", "value" : "Camilla", "personId" : "camilla" },
 		{ "type" : "storebror", "value" : "Jens", "personId" : "jens" },
 		{ "type" : "lillebror", "value" : "Erik", "personId" : "erik" },
-		{ "type" : "sambo", "value" : "Olof" },
+		{ "type" : "sambo", "value" : "Olof", "personId" : "olof" },
 		{ "type" : "son", "value" : "Jonatan", "personId" : "jonatan" },
-		{ "type" : "son", "value" : "Andreas", "personId" : "andreas" }
+		{ "type" : "son", "value" : "Andreas", "personId" : "andreas" },
+        { "type" : "son", "value" : "Edward", "personId" : "edward" }        
 	]
-   },	 	 	 	     
+   },
+   {"name" : "Olof",
+	"placeId" : "knavrav",
+	"relation" : [		
+		{ "type" : "sambo", "value" : "Catrin", "personId" : "catrin" },
+		{ "type" : "bonusson", "value" : "Jonatan", "personId" : "jonatan" },
+		{ "type" : "bonusson", "value" : "Andreas", "personId" : "andreas" },
+        { "type" : "son", "value" : "Edward", "personId" : "edward" }        
+	]
+   },   
    {"name" : "Jonatan",
  	"image" : "img/jonatantop.jpg",
   	"email" : "jonte@augustsson.eu",
-	"placeId" : "annesjon",
+	"placeId" : "knavrav",
 	"relation" : [		
-		{ "type" : "mamma", "value" : "Catrin", "personId" : "Catrin" },		
-		{ "type" : "pappa", "value" : "Mikael"},		
-		{ "type" : "lillebror", "value" : "Andreas", "personId" : "andreas" }
+		{ "type" : "mamma", "value" : "Catrin", "personId" : "Catrin" },
+        { "type" : "bonuspappa", "value" : "Olof", "personId" : "olof" },
+		{ "type" : "lillebror", "value" : "Andreas", "personId" : "andreas" },
+    	{ "type" : "lillebror", "value" : "Edward", "personId" : "edward" }        
 	]
    },
    {"name" : "Andreas",
  	"image" : "img/andreastop.jpg",
  	"email" : "andreas@augustsson.eu",
-	"placeId" : "annesjon",
+	"placeId" : "knavrav",
+	"relation" : [		
+		{ "type" : "mamma", "value" : "Catrin", "personId" : "Catrin" },
+        { "type" : "bonuspappa", "value" : "Olof", "personId" : "olof" },        
+		{ "type" : "storebror", "value" : "Jonatan", "personId" : "jonatan" },
+        { "type" : "lillebror", "value" : "Edward", "personId" : "edward" }        
+	]
+   },
+   {"name" : "Edward",
+	"placeId" : "knavrav",
 	"relation" : [		
 		{ "type" : "mamma", "value" : "Catrin", "personId" : "Catrin" },		
-		{ "type" : "pappa", "value" : "Jim"},		
-		{ "type" : "storebror", "value" : "Jonatan", "personId" : "jonatan" }
+        { "type" : "pappa", "value" : "Olof", "personId" : "olof" },		
+		{ "type" : "storebror", "value" : "Jonatan", "personId" : "jonatan" },
+        { "type" : "storebror", "value" : "Andreas", "personId" : "andreas" }        
 	]
-   }     
+   }   
  ],
  "places" : {
   "torpet" : { "lat" : "57.831587", "lon" : "12.454922", "address" : "Kärrsdalsvägen 14, Tollered" },
   "hjallsnas" :  { "lat" : "57.84701", "lon" : "12.36555", "address" : "Gategårdsv 99, Gråbo" },
-  "partille" : { "lat" : "57.73644", "lon" : "12.11163", "address" : "Oluff Nilsson väg 20, Partille" },
+  "alsjon" : { "lat" : "57.86313", "lon" : "12.30020", "address" : "Alsjöslingan 5, 44372 Gråbo" },
   "bjorboholm" : { "lat" : "57.87707", "lon" : "12.32264", "address" : "Burhultsv. 1946" },
-  "annesjon" : { "lat" : "57.85371", "lon" : "12.27852", "address" : "Norrskensv 11 44340" },
+  "knavrav" : { "lat" : "57.78037", "lon" : "12.30867", "address" : "Knavravägen 31 44361 Stenkullen" },
   "annedal" : { "lat" : "57.69504", "lon" : "11.96240", "address" : "Folke Bernadottes g. 2" },
-  "bayonne" : { "lat" : "43.49240", "lon" : "-1.47525" },
   "sodravagen" : { "lat" : "57.70077", "lon" : "11.97691", "address" : "Södrav. 19, Göteborg" },
   "london" : { "lat" : "51.560291", "lon" : "-0.170803", "address" : "Hampstead Heath, London" },		 
   "lovkullen" : { "lat" : "57.93706", "lon" : "12.51961" },	
-  "solros" : { "lat" : "57.719598", "lon" : "12.028012", "address" : "Solrosgatan 2A, 41651 Göteborg" }	 	
+  "patriks" : { "lat" : "57.71122", "lon" : "12.00743", "address" : "Danska vägen 73, Göteborg" }	 	
  }
 }
